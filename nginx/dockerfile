@@ -1,0 +1,14 @@
+FROM nginx:latest
+
+# Копируем индексную страницу
+COPY ./index.html /var/www/html/index.html
+
+# Копируем конфигурацию nginx
+COPY ./nginx-conf/nginx.conf /etc/nginx/conf.d/default.conf
+
+# Проверяем конфигурацию
+RUN /usr/sbin/nginx -t
+
+STOPSIGNAL SIGTERM
+
+CMD ["nginx", "-g", "daemon off;"]
